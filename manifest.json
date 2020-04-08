@@ -1,15 +1,25 @@
   {
-    "name": "Getting Started Example",
+    "name": "DOI Extension",
     "version": "1.0",
-    "description": "Build an Extension!",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "description": "Get the details of an article using its DOI.",
+    "permissions": ["tabs", "activeTab", "declarativeContent", "storage", "chrome-extension://*"],
 
     "background": {
-      "scripts": ["background.js"],
+      "scripts": ["thirdParty/jquery-3.4.1.min.js", "background.js"],
       "persistent": false
     },
-    "page_action": {
-      "default_popup": "popup.html",
+
+    "content_scripts": 
+    [
+        {
+            "matches":["<all_urls>"],
+            "js":["thirdParty/jquery-3.4.1.min.js", "dashboard.js"],
+            "run_at": "document_end"
+        }
+    ],
+
+    "browser_action": {
+      "default_popup": "login.html",
       "default_icon": {
         "16": "images/get_started16.png",
         "32": "images/get_started32.png",
