@@ -2,20 +2,20 @@
     "name": "DOI Extension",
     "version": "1.0",
     "description": "Get the details of an article using its DOI.",
-    "permissions": ["tabs", "activeTab", "declarativeContent", "storage", "chrome-extension://*"],
+    "permissions": ["tabs", "activeTab", "declarativeContent", "storage", "<all_urls>"],
 
     "background": {
       "scripts": ["thirdParty/jquery-3.4.1.min.js", "background.js"],
       "persistent": false
     },
 
-    "content_scripts": 
-    [
-        {
-            "matches":["<all_urls>"],
-            "js":["thirdParty/jquery-3.4.1.min.js", "dashboard.js"],
-            "run_at": "document_end"
-        }
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["selection.js"],
+        "run_at": "document_start",
+        "all_frames": true
+      }
     ],
 
     "browser_action": {

@@ -14,17 +14,21 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.runtime.onMessage.addListener((message, sender) => { 
-  chrome.tabs.create({url: 'result.html'}, (tab) => {
-    console.log("Received message:", message, tab);
-    // tab.executeScript({code: `$('#result').text(${message.result})`});
-  })
+
+  if (message.method === "showResult") {
+    chrome.tabs.create({url: 'result/index.html'}, (tab) => {
+      console.log("Received message:", message, tab);
+      // tab.executeScript({code: `$('#result').text(${message.result})`});
+    })
+  }
+
 });
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-   // make sure the status is 'complete' and it's the right tab
-   if (tab.url.indexOf('127.0.0.1:8000') != -1 && changeInfo.status == 'complete') {
-    chrome.tabs.executeScript(null, { 
-        code: "alert('hi');" 
-    });
-  }
-});
+// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+//    // make sure the status is 'complete' and it's the right tab
+//    if (tab.url.indexOf('127.0.0.1:8000') != -1 && changeInfo.status == 'complete') {
+//     chrome.tabs.executeScript(null, { 
+//         code: "alert('hi');" 
+//     });
+//   }
+// });
